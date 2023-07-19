@@ -1,43 +1,46 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+
 from .utils.database import create_record, get_record, update_record, delete_record
+from .models import Book
 
 
-# Create your views here.
+# def index(request):
+#     # 处理视图函数的逻辑
+#     return render(request, 'index.html')
+def index(request):
+    records = Book.objects.all()  # 假设使用 Record 模型
+    return render(request, 'index.html', {'records': records})
+
+
+@csrf_protect
 def create(request):
-    # Extract the data from the request
-    data = request.POST.dict()
+    if request.method == 'POST':
+        data = request.POST.dict()
+        record = create_record(data)
+        return redirect('index')
 
-    # Create a new record using the data
-    record = create_record(data)
-
-    # Return a JSON response with the created record
-    return JsonResponse({'record': record.__dict__})
+    return render(request, 'index.html')
 
 
 def read(request, record_id):
-    # Retrieve the record with the given ID
-    record = get_record(record_id)
-
-    # Return a JSON response with the retrieved record
-    return JsonResponse({'record': record.__dict__})
+    record = get_object_or_404(Book, id=record_id)
+    return render(request, 'read.html', {'record': record})
 
 
 def update(request, record_id):
-    # Extract the data from the request
-    data = request.POST.dict()
+    if request.method == 'POST':
+        data = request.POST.dict()
+        record = update_record(record_id, data)
+        return redirect('index')
 
-    # Update the record with the given ID using the data
-    record = update_record(record_id, data)
-
-    # Return a JSON response with the updated record
-    return JsonResponse({'record': record.__dict__})
+    record = get_record(record_id)
+    return render(request, 'index.html', {'record': record})
 
 
 def delete(request, record_id):
-    # Delete the record with the given ID
     delete_record(record_id)
+    return redirect('index')
 
-    # Return a JSON response indicating success
-    return JsonResponse({'status': 'Record deleted successfully'})
 

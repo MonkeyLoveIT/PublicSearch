@@ -13,7 +13,7 @@ conn = psycopg2.connect(
 cursor = conn.cursor()
 
 # 执行查询语句
-query = "SELECT * FROM test"
+query = "SELECT * FROM firstapp_book"
 cursor.execute(query)
 
 # 获取查询结果

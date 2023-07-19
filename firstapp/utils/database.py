@@ -2,9 +2,10 @@ from firstapp.models import Book  # Import your Django model(s)
 
 
 def create_record(data):
-    # Logic to create a new record using the provided data
+    data.pop('csrfmiddlewaretoken', None)  # 排除 'csrfmiddlewaretoken' 参数
     record = Book.objects.create(**data)
     return record
+
 
 
 def get_record(record_id):
