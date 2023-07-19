@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+venv/
+*.pyc
+__pycache__/
+firstapp/migrations/
+firstapp/__pycache__/
+*.log
