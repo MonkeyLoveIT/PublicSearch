@@ -19,7 +19,7 @@ def create(request):
     if request.method == 'POST':
         data = request.POST.dict()
         record = create_record(data)
-        return redirect('index')
+        return redirect('index')  # 重定向视图函数
 
     return render(request, 'index.html')
 
@@ -30,13 +30,20 @@ def read(request, record_id):
 
 
 def update(request, record_id):
+    record = get_object_or_404(Book, id=record_id)
+
     if request.method == 'POST':
         data = request.POST.dict()
-        record = update_record(record_id, data)
+        # 更新记录对象
+        record.title = data['title']
+        record.author = data['author']
+        record.publication_date = data['publication_date']
+        record.price = data['price']
+        # 更新其他字段
+        record.save()
         return redirect('index')
 
-    record = get_record(record_id)
-    return render(request, 'index.html', {'record': record})
+    return render(request, 'update.html', {'record': record})
 
 
 def delete(request, record_id):

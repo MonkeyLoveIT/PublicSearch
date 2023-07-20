@@ -1,0 +1,15 @@
+<form method="post" action="{% url 'update' record.id %}">
+    {% csrf_token %}
+    <!-- 表单字段 -->
+    <label for="title">标题:</label>
+    <input type="text" id="title" name="title" value="{{ record.title }}"><br><br>
+    <label for="author">作者:</label>
+    <input type="text" id="author" name="author" value="{{ record.author }}"><br><br>
+    <label for="publication_date">出版日期:</label>
+    <input type="date" id="publication_date" name="publication_date" required><br><br>
+    <label for="price">价格:</label>
+    <input type="number" id="price" name="price" step="0.01" required><br><br>
+    <!-- 其他字段 -->
+
+    <button type="submit">更新</button>
+</form>
