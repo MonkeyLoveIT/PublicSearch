@@ -39,7 +39,11 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-    'firstapp'
+    'firstapp',
+    'rest_framework',
+    # 'rest_framework-swagger',
+    'drf_yasg',
+    'api'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
