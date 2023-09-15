@@ -36,14 +36,14 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
+    'rest_framework-swagger',
+    'drf_yasg',
 ]
 
 LOCAL_APPS = [
     'firstapp',
-    'rest_framework',
-    # 'rest_framework-swagger',
-    'drf_yasg',
-    'api'
+    'api',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
